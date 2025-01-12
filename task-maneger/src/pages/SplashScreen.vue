@@ -9,7 +9,8 @@
     </div>
         <div v-if="showScreen === 'start'" class="start_sreen">
          
-        <div class="start_screen__corners"></div>
+        <div class="start_screen__corners" ></div>
+        <div class="start_screen__corners2" ></div>
         <img :src="Logo" alt="" class="logo">
 
 
@@ -34,7 +35,7 @@
 
           <div v-if="showScreen === 'todo'" >
           
-          <home-screen 
+          <todos-screen 
            :creenshow="showScreen"
            :screen="screenName"
            @update-name="updateName"
@@ -50,7 +51,7 @@
   </template>
   
   <script>
-  import HomeScreen from './HomeScreen.vue';
+  import TodosScreen from './Todos.vue';
 
   import imageUrl from
   '@/components/icons/Levels.png'
@@ -61,7 +62,7 @@
 
   export default {
     name: 'SplashScreen',
-  components: {HomeScreen},
+  components: {TodosScreen},
     data(){
       return{
         showScreen: 'start',
@@ -169,7 +170,7 @@ line-height: 38.73px;
     background: #51c7e2;
     transform: rotate(60deg);
     border-radius: 30px;
-    z-index: 0;
+    z-index: 2;
 }
 .start_screen__corners::after,::before{
     position: absolute;
@@ -177,6 +178,8 @@ line-height: 38.73px;
     width: 540px;
     height: 540px;
     border-radius: 30px;
+    z-index: 0;
+    
 }
 .start_screen__corners::before{
     background: #39c1df;
@@ -187,13 +190,30 @@ line-height: 38.73px;
     background: #1ab8db;
     transform: rotate(-30deg);
     
+    
 }
+.start_screen__corners2{
+    position: absolute;
+    top: -250px;
+    left: -75px;
+    content: '';
+    width: 540px;
+    height: 540px;
+    background: #39c1df;
+    transform: rotate(45deg);
+    border-radius: 30px;
+    z-index: 1;
+  }
 
 .logo{
   z-index: 3;
   position: absolute;
   top: 150px;
   left: 145px;
+}
+.hide
+{
+  display: none;
 }
 
 

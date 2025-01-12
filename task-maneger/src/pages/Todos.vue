@@ -18,8 +18,8 @@
           </ul>
      
       <ul class="todos_list">
-        <li v-for="task in filteredTasks" :key="task.id" @click="selectTask(task)" class="todos_item">
-          <div class="todos_title">
+        <li v-for="task in filteredTasks" :key="task.id"  class="todos_item">
+          <div class="todos_title" @click="selectTask(task)">
                 {{task.title}}
               </div>
 
@@ -88,6 +88,7 @@
           required: true,
         },
     },
+    name: 'TodosScreen',
     components:{AddTaskScreen, EditTaskScreen},
     data() {
       return {
@@ -203,6 +204,9 @@
   </script>
   
   <style>
+::before{
+  display: none;
+}
   .conteiner{
     width: calc(100%-32px);
     margin: 0 auto;
@@ -265,6 +269,7 @@ margin-left: -24px;
     margin-bottom: 12px;
     box-shadow: 0px 4px 8px 0px #0000000A;
     position: relative;
+    z-index: 1;
 }
 
 .todos_title{
@@ -273,19 +278,6 @@ margin-left: -24px;
     margin-bottom: 8px;
 }
 
-.todos_description{
-    color: rgb(0, 13, 27, 0.6);
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgb(0, 13, 27, 0.1);
-    margin-bottom: 12px;
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.todos_date{
-    color: rgb(0, 13, 27, 0.4);
-    font-size: 14px;
-}
 
 .todos_check{
     position: absolute;
@@ -309,6 +301,7 @@ margin-left: -24px;
     left: 0;
     top: 0;
     position: absolute;
+    z-index: 2;
 }
 
 .todos_check label::after{

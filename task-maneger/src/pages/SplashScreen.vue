@@ -6,11 +6,11 @@
       <div class="phone__icons">
         <img :src="imageUrl" alt="icons">
       </div>
+
     </div>
         <div v-if="showScreen === 'start'" class="start_sreen">
-         
+
         <div class="start_screen__corners" ></div>
-        <div class="start_screen__corners2" ></div>
         <img :src="Logo" alt="" class="logo">
 
 
@@ -23,52 +23,33 @@
         </div>
 
        </div>
-       
-        <div v-if="showScreen !== 'start'" class="todo_sreen" >
-          <div class="todos__header">
-          <div class="todos_screen_back" @click="goToStart">
-            <img :src="arrow" alt="back">
-            <span>Back</span>
-          </div>
-          <h2>{{screenName}}</h2>
-        </div>
 
-          <div v-if="showScreen === 'todo'" >
-          
-          <todos-screen 
-           :creenshow="showScreen"
-           :screen="screenName"
-           @update-name="updateName"
-          />
-          </div>
-          
-        </div>
 
-       
-      
+
+
+
     </div>
   </div>
   </template>
-  
+
   <script>
-  import TodosScreen from './Todos.vue';
+
 
   import imageUrl from
   '@/components/icons/Levels.png'
   import Logo from
   '@/components/icons/Logo.png'
-  import arrow from
-  '@/components/icons/Chevron.png'
+
 
   export default {
     name: 'SplashScreen',
-  components: {TodosScreen},
+  components: {},
     data(){
       return{
         showScreen: 'start',
         imageUrl,
         Logo,
-        arrow,
+
         screenName: 'Tasks',
       }
     },
@@ -77,7 +58,7 @@
         this.screenName = newValue;
       },
       navigateToHome() {
-        this.showScreen = 'todo';
+        this.$router.push('/tasks');
       },
       goToStart() {
         this.showScreen = 'start';
@@ -85,36 +66,10 @@
     },
   };
   </script>
-  
-  <style scoped>
-  #app{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-.phone{
-    width: 100%;
-    max-width: 390px;
-    height: 850px;
-    background: #F6F5F8;
-    position: relative;
-    overflow: hidden;
 
-    
-}
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #51C9E4;
-    padding-left: 52px;
-    z-index: 3;
-    position: relative;
-   
-}
-.white{
-  background: #fff;
+  <style scoped>
+.splash-screen{
+  max-width: 390px;
 }
 
 .start_screeen_greeting{
@@ -157,8 +112,8 @@ line-height: 38.73px;
     color: #007AFF;
     gap: 5px;
     width: 85px;
-    
- 
+
+
 }
 .start_screen__corners{
     position: absolute;
@@ -179,31 +134,19 @@ line-height: 38.73px;
     height: 540px;
     border-radius: 30px;
     z-index: 0;
-    
+
 }
 .start_screen__corners::before{
     background: #39c1df;
     transform: rotate(75deg);
-    
+
 }
 .start_screen__corners::after{
     background: #1ab8db;
     transform: rotate(-30deg);
-    
-    
+
+
 }
-.start_screen__corners2{
-    position: absolute;
-    top: -250px;
-    left: -75px;
-    content: '';
-    width: 540px;
-    height: 540px;
-    background: #39c1df;
-    transform: rotate(45deg);
-    border-radius: 30px;
-    z-index: 1;
-  }
 
 .logo{
   z-index: 3;
@@ -218,4 +161,3 @@ line-height: 38.73px;
 
 
   </style>
-  

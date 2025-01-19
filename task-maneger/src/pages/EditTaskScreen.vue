@@ -1,5 +1,10 @@
 <template>
+
+
+
   <div  class="process">
+
+
          <div class="process_img">
            <img :src="logoForm" alt="logo dark">
          </div>
@@ -7,7 +12,7 @@
            <div class="field_box_title">Title *</div>
            <input v-model="editableTask.title" class="input_box__input" type="text" placeholder="Enter Title">
          </div>
-        
+
            <button class="btm add" @click="saveChanges">
              Done
            </button>
@@ -16,6 +21,9 @@
            </button>
 
        </div>
+
+
+
 </template>
 
 <script>
@@ -26,7 +34,7 @@ export default {
    return {
      logoForm,
     editableTask:{ ...this.task},
-     
+
    };
  },
  props:{
@@ -37,19 +45,19 @@ export default {
   },
 
   task_list:{
-      
+
       type: Array,
       default(){
         return []
       }
     },
-   
+
     localCren:{
       type: String,
       required:true,
     }
  },
- 
+
  methods: {
  saveChanges(){
 this.$emit('update-task', this.editableTask);
@@ -59,12 +67,12 @@ this.cancelTodo();
            const newValue = 'todo';
            this.$emit('custom-event',newValue );
            this.$emit('remove-task', this.editableTask)
- 
+
      },
      cancelTodo(){
            const newValue = 'todo';
            this.$emit('custom-event',newValue )
- 
+
      },
  },
  watch:{

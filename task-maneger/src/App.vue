@@ -1,15 +1,16 @@
 <template>
  
-    <splash-screen />
- 
+ <div id="app">
+    <router-view />
+  </div>
   
 </template>
 
 <script>
-import SplashScreen from './pages/SplashScreen.vue';
+
 export default {
   name: 'App',
-  components: {SplashScreen},
+  
 };
 </script>
 

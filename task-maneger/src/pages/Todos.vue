@@ -1,9 +1,24 @@
 <template>
-    <div v-if="localCreenShow === 'todo'" class="home-screen">
+
+  <div class="phone">
+    <div class="home-screen">
       <div class="todos conteiner">
-      <ul class="todos_tabs">
+        <div class="header" :class="{ white: showScreen !== 'start'}">
+      <div class="heder__time">9:41</div>
+      <div class="phone__icons">
+        <img :src="imageUrl" alt="icons">
+      </div>
+      </div>
+      <div class="todos__header">
+          <div class="todos_screen_back" @click="goToStart">
+            <img :src="arrow" alt="back">
+            <span>Back</span>
+          </div>
+          <h2>{{ thiscrenn }}</h2>
+        </div>
+      <ul class="todos_tabs"  v-if="localCreenShow === 'todo'">
            <li v-for="tab in computedTabs" class="todo_tab"
-            @click="selectTab(tab)" 
+            @click="selectTab(tab)"
             :key="tab.id"
             :class="{
               selected: selectedTab === tab.id
@@ -16,41 +31,41 @@
               </span>
            </li>
           </ul>
-     
-      <ul class="todos_list">
+
+      <ul class="todos_list" v-if="localCreenShow === 'todo'">
         <li v-for="task in filteredTasks" :key="task.id"  class="todos_item">
           <div class="todos_title" @click="selectTask(task)">
                 {{task.title}}
               </div>
 
           <div class="todos_check">
-            <input 
+            <input
             :id="task.id"
-            type="checkbox" 
+            type="checkbox"
             v-model="task.completed"
-            
+
           />
           <label :for="task.id"></label>
               </div>
-         
-          
-          
+
+
+
         </li>
       </ul>
     </div>
-    <div class="todo_sreen__add_btn" @click="goToAdd">
+    <div class="todo_sreen__add_btn" @click="goToAdd" >
             <img :src="Plus" alt="plus">
           </div>
   </div>
 
   <div v-if="localCreenShow === 'add'" class="todo_sreen__add conteiner2">
           <add-task-screen
-          
+
          v-model="localCreenShow"
           @custom-event="changeScren"
           :task_list="tasks"
           @add-item="addItem"
-          
+
           />
   </div>
 
@@ -62,18 +77,26 @@
           :task = "selectedTask"
            @update-task="updateTask"
          @remove-task="removeTask"
-          
+
           />
   </div>
   <div v-if="showModification" class="delet_notification">
         <span class="massage">Task Deleted</span>
         <button class="close-btn" @click="hiddeDeletModification">&times;</button>
     </div>
+
+
+  </div>
+
   </template>
-  
+
   <script>
   import EditTaskScreen from './EditTaskScreen.vue';
   import AddTaskScreen from './AddTaskScreen.vue';
+  import imageUrl from
+  '@/components/icons/Levels.png'
+  import arrow from
+  '@/components/icons/Chevron.png'
     import Plus from
   '@/components/icons/🦆 icon _plus_.png'
   export default {
@@ -95,10 +118,12 @@
         selectedTask:null,
         selectedIndex:null,
         showModification: false,
-
+        imageUrl,
+        arrow,
         Plus,
-        localCreenShow: this.creenshow,
-        thiscrenn: this.screen,
+
+        localCreenShow: 'todo',
+        thiscrenn: 'Tasks',
         tasks: [],
         tabs:[
                 {
@@ -119,7 +144,7 @@
               ],
               selectedTab: 'all',
       };
-      
+
     },
     methods: {
       hiddeDeletModification(){
@@ -165,16 +190,19 @@
         this.localCreenShow = 'edit';
         this.thiscrenn = 'Edit Task';
         this.$emit('update-name', this.thiscrenn);
-       
+
+      },
+      goToStart() {
+        this.$router.push( '/');
       },
     },
-    
-  
+
+
     async mounted() {
         const response = await fetch('https://jsonplaceholder.typicode.com/todos');
         this.tasks = await response.json();
     },
-    
+
   computed:{
     filteredTasks(){
             if(this.selectedTab === 'closed'){
@@ -186,7 +214,7 @@
             return this.tasks;
         },
     computedTabs(){
-      
+
             return this.tabs.map(tab =>{
                 if(tab.id === 'open'){
                   tab.counter =  this.tasks.filter(task => !task.completed).length;
@@ -199,14 +227,12 @@
             })
         },
     },
-  
+
   };
   </script>
-  
+
   <style>
-::before{
-  display: none;
-}
+
   .conteiner{
     width: calc(100%-32px);
     margin: 0 auto;
@@ -283,7 +309,7 @@ margin-left: -24px;
     position: absolute;
     top: 12px;
     right: 12px;
-    
+
 
 }
 
@@ -308,7 +334,7 @@ margin-left: -24px;
     position: absolute;
     content: '';
     height: 4px;
-    width: 9px; 
+    width: 9px;
     border-bottom: 2px solid white;
     border-left: 2px solid white;
     left: 4px;
